@@ -1,0 +1,30 @@
+name: Validate Gemini extension
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      # Pin the host used to verify transport and manifest compatibility.
+      - run: npm install --global @google/gemini-cli@0.68.0
+      - run: node scripts/validate.mjs
+      - run: gemini extensions validate .
+      # Use Gemini's own skill validator as well as our reference checks.
+      - name: Validate skills with Gemini
+        shell: bash
+        run: |
+          validator="$(npm root --global)/@google/gemini-cli/bundle/builtin/skill-creator/scripts/validate_skill.cjs"
+          for skill in skills/*; do
+            node "$validator" "$PWD/$skill"
+          done

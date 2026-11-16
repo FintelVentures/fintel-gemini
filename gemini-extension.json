@@ -1,0 +1,12 @@
+{
+  "name": "fintel-gemini",
+  "version": "0.3.1",
+  "description": "Research stocks, funds and public manager portfolios with 28 Fintel financial research skills and your Fintel account.",
+  "contextFileName": "GEMINI.md",
+  "mcpServers": {
+    "fintel": {
+      "url": "https://mcp.fintel.io/mcp",
+      "type": "http"
+    }
+  }
+}

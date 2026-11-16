@@ -1,0 +1,8 @@
+# Gemini owns local settings, installation metadata and OAuth credentials.
+.gemini/
+.gemini-extension-install.json
+.env
+.env.*
+node_modules/
+dist/
+.DS_Store
